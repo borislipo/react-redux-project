@@ -1,14 +1,15 @@
 import React from "react";
 import '../styles/stylesheet.css'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Post = ( props ) => {
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {post, removePost} = props;
     const {imageLink, description, id} = post;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const numberOfComments = useSelector(state => state.commentReducer[id] || []).length;
+    
 
     return(
         <figure className="post">
@@ -19,6 +20,7 @@ const Post = ( props ) => {
              navigate('/');
 
             }}>Remove</button>
+            <Link to={`/Single/${id}`} ><button>{numberOfComments > 0 ? numberOfComments : null}Comments</button></Link>
         </figure>
     )
 }
