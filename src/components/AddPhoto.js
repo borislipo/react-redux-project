@@ -10,7 +10,7 @@ const AddPhoto = () => {
     const [imgDescription, setImgDescription] = useState('');
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { addPost } = actions;
+    const { startAddPost } = actions;
 
 
     const handleSubmit = (e) => {
@@ -22,12 +22,11 @@ const AddPhoto = () => {
 
         else{
             const newPost = {
-                id: Date.now(),
                 imageLink : imageUrl,
                 description : imgDescription
             }
 
-            dispatch(addPost(newPost));
+            dispatch(startAddPost(newPost));
             setImageUrl('');
             setImgDescription('');
             navigate('/');

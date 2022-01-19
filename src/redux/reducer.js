@@ -3,9 +3,10 @@ import { combineReducers } from 'redux'
 
 
 
-const commentReducer = (state = {} , action) => {
+const commentReducer = (state = [] , action) => {
     
         switch (action.type) {
+            case "LOAD_COMMENTS": return action.comments
             case "REMOVE_COMMENT": return {...state, [action.id]: state[action.id].filter(comment => comment !== action.comment)}
             case "ADD_COMMENT": 
              if(!state[action.id]){
@@ -25,6 +26,7 @@ const postReducer = (state = posts, action) => {
     switch (action.type) {
         case "REMOVE_POST": return [...state.filter(post => post.id !== action.id)]
         case "ADD_POST": return [...state, action.post]
+        case "LOAD_POSTS": return action.posts
         default: return state
 
     }

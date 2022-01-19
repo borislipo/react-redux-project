@@ -1,12 +1,24 @@
-import React, { useReducer, useState } from "react";
+import React, {useState, useEffect } from "react";
 import Title from "./Title";
 import PhotoWall from "./PhotoWall";
 import '../styles/stylesheet.css'
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as actions from '../redux/actions';
 
 const Main = () => {
+    const dispatch = useDispatch();
     const posts = useSelector(state => state.postReducer);
+    const { startLoadingPosts } = actions
+    
+
+    useEffect(() => {
+
+        dispatch(startLoadingPosts());
+
+    }, []);
+
+
     
     return (
 
@@ -14,7 +26,6 @@ const Main = () => {
             <Title />
             {<PhotoWall posts={posts} {...actions} />}
         </div>
-
     )
 }
 

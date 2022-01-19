@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from '../redux/actions';
 
 const Comments = (props) => {
+    const { id, comments} = props;
     const [comment, setComment] = useState("");
     const dispatch = useDispatch();
-    const { addComment, removeComment } = actions;
-    const { id, comments} = props;
+    const { startAddComment, removeComment } = actions;
     
 
     const handleSubmit = (e) => {
@@ -16,7 +16,7 @@ const Comments = (props) => {
             return alert("Please enter a comment");
         }
         else {
-            dispatch(addComment(comment, id ));
+            dispatch(startAddComment(comment, id ));
             setComment("");
         }
     }
@@ -33,7 +33,7 @@ const Comments = (props) => {
                 <button type="submit">Add Comment</button>
             </form>
             {
-              comments.map(comment => <p key={comment}>{comment}<button onClick={() => dispatch(removeComment(comment, id)) }>x</button></p>)
+             comments.length > 0 ? comments.map(comment => <p key={comment}>{comment}<button onClick={() => dispatch(removeComment(comment, id)) }>x</button></p>) : null
             }
         </div>
     )
